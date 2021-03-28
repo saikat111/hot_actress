@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.3'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        applicationId 'com.codingburg.actresshot'
+
+        manifestPlaceholders = [onesignal_app_id: "5e1b1080-0fa1-4aa6-baae-1324631b202c",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
+
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 9
+        versionName '9.0.0.0.1'
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.gms:play-services-ads:18.2.0'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.8'
+    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.onesignal:OneSignal:3.11.2'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'com.bogdwellers:pinchtozoom:0.1'
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.karumi:dexter:4.2.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'commons-io:commons-io:2.6'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.+'
+
+
+
+}
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "889341506874",
+    "project_id": "actress-hot-c487d",
+    "storage_bucket": "actress-hot-c487d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889341506874:android:f2705e8bd346710c568c03",
+        "android_client_info": {
+          "package_name": "com.codingburg.actresshot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889341506874-1lsiop8h7bmdmdrkqfom3sjiqaeeun56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASdAUzrKhT4Xsgb_0QJW946oLyOWYg3Bw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889341506874-1lsiop8h7bmdmdrkqfom3sjiqaeeun56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
