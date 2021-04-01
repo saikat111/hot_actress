@@ -7,11 +7,10 @@
     <string name="app_email">x</string>
     <string name="app_copyright">x</string>
 
-    <string name="facebook_banner_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
-    <string name="facebook_interstitial_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
-<!--
-    <string name="facebook_banner_ads">157590382852772_157913832820427</string>
-    <string name="facebook_interstitial_ads">157590382852772_157914179487059</string>-->
+   <!-- <string name="facebook_banner_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
+    <string name="facebook_interstitial_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>-->
+    <string name="facebook_banner_ads">277463430533326_277794240500245</string>
+    <string name="facebook_interstitial_ads">277463430533326_277794617166874</string>
     <!--admob ads id-->
     <!--<string name="admob_publisher_id">pub-6355099258159418</string>
     <string name="admob_app_id">ca-app-pub-6355099258159418~5503912813</string>
