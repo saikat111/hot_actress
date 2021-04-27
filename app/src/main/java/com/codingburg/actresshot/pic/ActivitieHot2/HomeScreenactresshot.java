@@ -29,6 +29,11 @@ import com.codingburg.actresshot.pic.FragmentHot2.FExploreactresshot;
 import com.codingburg.actresshot.pic.FragmentHot2.FragmentFavoriteactresshot;
 import com.codingburg.actresshot.pic.UtilHot2.DataBaseHelp;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -38,7 +43,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import com.facebook.ads.*;
+/*import com.facebook.ads.*;*/
 import java.io.IOException;
 import java.util.List;
 
@@ -66,6 +71,7 @@ public class HomeScreenactresshot extends AppCompatActivity implements Navigatio
     private AdView adView;
     private static final int REQUEST = 112;
     DataBaseHelp databaseHelp;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,19 @@ public class HomeScreenactresshot extends AppCompatActivity implements Navigatio
             }
         }
 
+        //admob
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
         databaseHelp = new DataBaseHelp(HomeScreenactresshot.this);
         try {
             databaseHelp.createDataBase();
@@ -85,7 +104,7 @@ public class HomeScreenactresshot extends AppCompatActivity implements Navigatio
             e.printStackTrace();
         }
 
-        AudienceNetworkAds.initialize(this);
+       /* AudienceNetworkAds.initialize(this);
 
         adView = new AdView(this, getString(R.string.facebook_banner_ads), AdSize.BANNER_HEIGHT_50);
 
@@ -97,7 +116,7 @@ public class HomeScreenactresshot extends AppCompatActivity implements Navigatio
 
         // Request an ad
         adView.loadAd();
-
+*/
 
         navView = findViewById(R.id.navigation_view);
         navView.setNavigationItemSelectedListener(this);

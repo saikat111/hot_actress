@@ -1,5 +1,6 @@
 package com.codingburg.actresshot.pic.FragmentHot2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,10 +37,14 @@ import com.codingburg.actresshot.pic.UtilHot2.DataBaseHelp;
 import com.codingburg.actresshot.pic.UtilHot2.OffsetD;
 import com.codingburg.actresshot.pic.UtilHot2.Tool;
 
-import com.facebook.ads.Ad;
+/*import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAd;
-import com.facebook.ads.InterstitialAdListener;
+import com.facebook.ads.InterstitialAdListener;*/
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -62,7 +67,7 @@ public class FragmentRecent extends Fragment {
     private boolean itShouldLoadMore = true;
     private AdapterWallpaperactresshot mAdapter;
     private ArrayList<WallpaperA> arrayList;
-    private InterstitialAd interstitialAd;
+    private InterstitialAd mInterstitialAd;
 
     ProgressBar progressBar;
     View lyt_no_item, view;
@@ -71,6 +76,30 @@ public class FragmentRecent extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_wallpaper, container, false);
+
+        //admob
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(getContext(),view.getContext().getString(R.string.admob_interstitial_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                mInterstitialAd = null;
+            }
+        });
+
+
+
+
         lyt_parent = view.findViewById(R.id.lyt_parent);
         lyt_no_item = view.findViewById(R.id.lyt_no_item);
 
@@ -351,9 +380,15 @@ public class FragmentRecent extends Fragment {
     }
 
     private void LoadInterstitialAd() {
+        //admob
 
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show((Activity) view.getContext());
+        } else {
 
-        interstitialAd = new InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
+        }
+//fb ads
+      /*  interstitialAd = new InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
         // Create listeners for the Interstitial Ad
         InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
             @Override
@@ -403,7 +438,7 @@ public class FragmentRecent extends Fragment {
                         .build());
 
 
-
+*/
 
 
 

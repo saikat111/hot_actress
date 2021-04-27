@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,9 +30,10 @@ import com.codingburg.actresshot.R;
 import com.codingburg.actresshot.pic.UtilHot2.Const;
 import com.codingburg.actresshot.pic.UtilHot2.GDPR;
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -47,7 +49,7 @@ public class SetWallpaperactresshot extends AppCompatActivity {
     String str_image;
     Toolbar toolbar;
     Bitmap bitmap = null;
-    private InterstitialAd interstitialAd;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,6 @@ public class SetWallpaperactresshot extends AppCompatActivity {
             }
         }
 
-        initAds();
         loadInterstitialAd();
 
         toolbar = findViewById(R.id.toolbar);
@@ -304,37 +305,37 @@ public class SetWallpaperactresshot extends AppCompatActivity {
         return result;
     }
 
-    private void initAds() {
-        if (ConfigerationsHot2.ENABLE_ADMOB_INTERSTITIAL_ADS) {
-            MobileAds.initialize(SetWallpaperactresshot.this, getResources().getString(R.string.admob_app_id));
-        }
-    }
+
 
     private void loadInterstitialAd() {
-        if (ConfigerationsHot2.ENABLE_ADMOB_INTERSTITIAL_ADS) {
-            interstitialAd = new InterstitialAd(getApplicationContext());
-            interstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial_unit_id));
-            interstitialAd.loadAd(GDPR.getAdRequest(SetWallpaperactresshot.this));
-            interstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    closeApp();
-                }
-            });
-        }
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,getString(R.string.admob_interstitial_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+
+                mInterstitialAd = null;
+            }
+        });
     }
 
     private void showInterstitialAd() {
-        if (ConfigerationsHot2.ENABLE_ADMOB_INTERSTITIAL_ADS) {
-            if (interstitialAd != null && interstitialAd.isLoaded()) {
-                interstitialAd.show();
-            } else {
-                closeApp();
-            }
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(SetWallpaperactresshot.this);
         } else {
             closeApp();
         }
     }
+
 
     private void closeApp() {
         Intent intent = new Intent(SetWallpaperactresshot.this, HomeScreenactresshot.class);

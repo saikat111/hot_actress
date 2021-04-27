@@ -1,5 +1,6 @@
 package com.codingburg.actresshot.pic.FragmentHot2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,9 +36,13 @@ import com.codingburg.actresshot.pic.UtilHot2.Const;
 import com.codingburg.actresshot.pic.UtilHot2.DataBaseHelp;
 import com.codingburg.actresshot.pic.UtilHot2.OffsetD;
 import com.codingburg.actresshot.pic.UtilHot2.Tool;
-import com.facebook.ads.Ad;
+/*import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.InterstitialAdListener;
+import com.facebook.ads.InterstitialAdListener;*/
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -48,7 +53,7 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.os.ParcelFileDescriptor.MODE_APPEND;
-import com.facebook.ads.*;
+/*import com.facebook.ads.*;*/
 public class FragmentRandom extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout = null;
@@ -59,7 +64,7 @@ public class FragmentRandom extends Fragment {
     private boolean itShouldLoadMore = true;
     private AdapterWallpaperactresshot mAdapter;
     private ArrayList<WallpaperA> arrayList;
-    private InterstitialAd interstitialAd;
+    private InterstitialAd mInterstitialAd;
 
     ProgressBar progressBar;
     View lyt_no_item, view;
@@ -68,6 +73,26 @@ public class FragmentRandom extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_wallpaper, container, false);
+
+        //admob
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        com.google.android.gms.ads.interstitial.InterstitialAd.load(getContext(),view.getContext().getString(R.string.admob_interstitial_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull com.google.android.gms.ads.interstitial.InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                mInterstitialAd = null;
+            }
+        });
         lyt_parent = view.findViewById(R.id.lyt_parent);
         lyt_no_item = view.findViewById(R.id.lyt_no_item);
 
@@ -345,9 +370,15 @@ public class FragmentRandom extends Fragment {
     }
 
     private void LoadInterstitialAd() {
+        //admob
 
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show((Activity) view.getContext());
+        } else {
 
-        interstitialAd = new com.facebook.ads.InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
+        }
+//fb ads
+      /*  interstitialAd = new InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
         // Create listeners for the Interstitial Ad
         InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
             @Override
@@ -397,7 +428,7 @@ public class FragmentRandom extends Fragment {
                         .build());
 
 
-
+*/
 
 
 

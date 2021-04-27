@@ -469,7 +469,7 @@ public class Searchactresshot extends AppCompatActivity {
     }
 
     public void loadBannerAd() {
-        if (ConfigerationsHot2.ENABLE_ADMOB_BANNER_ADS_MAIN_PAGE) {
+       /* if (ConfigerationsHot2.ENABLE_ADMOB_BANNER_ADS_MAIN_PAGE) {
             MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
             adView = findViewById(R.id.adView);
             adView.loadAd(GDPR.getAdRequest(this));
@@ -497,7 +497,7 @@ public class Searchactresshot extends AppCompatActivity {
                     adView.setVisibility(View.VISIBLE);
                 }
             });
-        }
+        }*/
     }
 
     private void showRefresh(boolean show) {

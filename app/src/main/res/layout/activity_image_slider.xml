@@ -29,7 +29,7 @@
                 android:elevation="6dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-            <LinearLayout
+           <!-- <LinearLayout
                 android:id="@+id/banner_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,13 @@
 
 
 
-                />
+                />-->
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/admob_banner_unit_id" />
             <include layout="@layout/sheet_wallpaper" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

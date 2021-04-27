@@ -1,6 +1,8 @@
 package com.codingburg.actresshot.pic.ActivitieHot2;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,9 +36,14 @@ import com.codingburg.actresshot.pic.UtilHot2.DataBaseHelp;
 import com.codingburg.actresshot.pic.UtilHot2.OffsetD;
 import com.codingburg.actresshot.pic.UtilHot2.Tool;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
 
-import com.facebook.ads.*;
+/*import com.facebook.ads.*;*/
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +65,8 @@ public class Categoryactresshot extends AppCompatActivity {
     Tool tool;
     String categoryId, categoryName;
     private AdView adView;
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +80,27 @@ public class Categoryactresshot extends AppCompatActivity {
         }
 
 
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
-        AudienceNetworkAds.initialize(this);
+        InterstitialAd.load(Categoryactresshot.this,getString(R.string.admob_interstitial_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                mInterstitialAd = null;
+            }
+        });
+
+       /* AudienceNetworkAds.initialize(this);
 
         adView = new AdView(this, getString(R.string.facebook_banner_ads), AdSize.BANNER_HEIGHT_50);
 
@@ -84,7 +112,7 @@ public class Categoryactresshot extends AppCompatActivity {
 
         // Request an ad
         adView.loadAd();
-
+*/
 
 
 
@@ -155,7 +183,7 @@ public class Categoryactresshot extends AppCompatActivity {
                 Const.arrayList.clear();
                 Const.arrayList.addAll(arrayList);
                 startActivity(intent);
-
+                showInterstitialAd();
             }
         });
 
@@ -367,5 +395,90 @@ public class Categoryactresshot extends AppCompatActivity {
         }
     }
 
+    private void LoadInterstitialAd() {
+        //admob
 
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show((Activity) Categoryactresshot.this);
+        } else {
+
+        }
+//fb ads
+      /*  interstitialAd = new InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
+        // Create listeners for the Interstitial Ad
+        InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                // Interstitial ad displayed callback
+
+            }
+
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                // Interstitial dismissed callback
+
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+
+                // Show the ad
+                interstitialAd.show();
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+
+            }
+        };
+
+        // For auto play video ads, it's recommended to load the ad
+        // at least 30 seconds before it is shown
+        interstitialAd.loadAd(
+                interstitialAd.buildLoadAdConfig()
+                        .withAdListener(interstitialAdListener)
+                        .build());
+
+
+*/
+
+
+
+    }
+    private void showInterstitialAd() {
+        SharedPreferences sh = getSharedPreferences("countclick", MODE_APPEND);
+        int counter = sh.getInt("count", 0);
+
+        if (counter == ConfigerationsHot2.INTERSTITIAL_ADS_INTERVAL) {
+            LoadInterstitialAd();
+            SharedPreferences sharedPreferences = getSharedPreferences("countclick",MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+            myEdit.putInt("count", 0);
+            myEdit.commit();
+
+
+        } else {
+            SharedPreferences sharedPreferences = getSharedPreferences("countclick",MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+            counter = counter + 1;
+            myEdit.putInt("count", counter);
+            myEdit.commit();
+        }
+
+
+    }
 }

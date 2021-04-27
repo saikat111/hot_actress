@@ -60,6 +60,11 @@ import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -86,7 +91,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.facebook.ads.*;
+/*import com.facebook.ads.*;*/
 public class ImageSlideractresshot extends AppCompatActivity implements SensorEventListener {
 
     DataBaseHelp dataBaseHelp;
@@ -105,8 +110,8 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
     ImageButton btn_favorite, btn_download, btn_share, btn_set;
     Toolbar toolbar;
     ProgressDialog progressDialog;
-    private InterstitialAd interstitialAd;
-    private AdView adView;
+    private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
     LinearLayout lyt_action;
     RecyclerView recyclerView_tags;
     AdapterTagsactresshot adapterTagsactresshot;
@@ -145,7 +150,35 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
         dataBaseHelp = new DataBaseHelp(ImageSlideractresshot.this);
         tool = new Tool(ImageSlideractresshot.this);
 
-        AudienceNetworkAds.initialize(this);
+        //admob
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(ImageSlideractresshot.this,getString(R.string.admob_interstitial_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                mInterstitialAd = null;
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest2 = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest2);
+
+
+
+
+
+
+        /*AudienceNetworkAds.initialize(this);
 
         adView = new AdView(this, getString(R.string.facebook_banner_ads), AdSize.BANNER_HEIGHT_50);
 
@@ -157,7 +190,7 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
 
         // Request an ad
         adView.loadAd();
-
+*/
 
 
 
@@ -1204,34 +1237,40 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
         intent.setData(uri);
         startActivityForResult(intent, 101);
     }
-    private void showInterstitialAd() {
+    private void showInterstitialAd(){
+        //admob
 
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(ImageSlideractresshot.this);
+        } else {
 
-        interstitialAd = new InterstitialAd(this, getString(R.string.facebook_interstitial_ads));
+        }
+//fb ads
+      /*  interstitialAd = new InterstitialAd(view.getContext(), view.getContext().getString(R.string.facebook_interstitial_ads));
         // Create listeners for the Interstitial Ad
         InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
             @Override
             public void onInterstitialDisplayed(Ad ad) {
                 // Interstitial ad displayed callback
-                Log.e(TAG, "Interstitial ad displayed.");
+
             }
 
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 // Interstitial dismissed callback
-                Log.e(TAG, "Interstitial ad dismissed.");
+
             }
 
             @Override
             public void onError(Ad ad, AdError adError) {
                 // Ad error callback
-                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+
             }
 
             @Override
             public void onAdLoaded(Ad ad) {
                 // Interstitial ad is loaded and ready to be displayed
-                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+
                 // Show the ad
                 interstitialAd.show();
             }
@@ -1239,13 +1278,13 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
             @Override
             public void onAdClicked(Ad ad) {
                 // Ad clicked callback
-                Log.d(TAG, "Interstitial ad clicked!");
+
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
                 // Ad impression logged callback
-                Log.d(TAG, "Interstitial ad impression logged!");
+
             }
         };
 
@@ -1257,7 +1296,7 @@ public class ImageSlideractresshot extends AppCompatActivity implements SensorEv
                         .build());
 
 
-
+*/
 
 
 

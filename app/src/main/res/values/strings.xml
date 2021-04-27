@@ -7,23 +7,23 @@
     <string name="app_email">x</string>
     <string name="app_copyright">x</string>
 
-   <!-- <string name="facebook_banner_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
-    <string name="facebook_interstitial_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>-->
-    <string name="facebook_banner_ads">277463430533326_277794240500245</string>
-    <string name="facebook_interstitial_ads">277463430533326_277794617166874</string>
+    <string name="facebook_banner_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
+    <string name="facebook_interstitial_ads">IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID</string>
+<!--    <string name="facebook_banner_ads">277463430533326_277794240500245</string>
+    <string name="facebook_interstitial_ads">277463430533326_277794617166874</string>-->
     <!--admob ads id-->
-    <!--<string name="admob_publisher_id">pub-6355099258159418</string>
-    <string name="admob_app_id">ca-app-pub-6355099258159418~5503912813</string>
-    <string name="admob_banner_unit_id">ca-app-pub-6355099258159418/2686177785</string>
-    <string name="admob_interstitial_unit_id">ca-app-pub-6355099258159418/3807687767</string>
-    <string name="admon_video_ad_unit_id">ca-app-pub-6355099258159418/6242279416</string>-->
+    <string name="admob_publisher_id">pub-6876253408539893</string>
+    <string name="admob_app_id">ca-app-pub-6876253408539893~2979361214</string>
+    <string name="admob_banner_unit_id">ca-app-pub-6876253408539893/1775635348</string>
+    <string name="admob_interstitial_unit_id">ca-app-pub-6876253408539893/1775635348</string>
+    <string name="admon_video_ad_unit_id">ca-app-pub-3940256099942544/5224354917</string>
 <!--test-->
     <!--admob ads id-->
-    <string name="admob_publisher_id">pub-3940256099942544</string>
+   <!-- <string name="admob_publisher_id">pub-3940256099942544</string>
     <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="admob_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-     <string name="admon_video_ad_unit_id">ca-app-pub-3940256099942544/5224354917</string>
+     <string name="admon_video_ad_unit_id">ca-app-pub-3940256099942544/5224354917</string>-->
 
 
 
